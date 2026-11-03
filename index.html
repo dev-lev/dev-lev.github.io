@@ -1,0 +1,1590 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Интерактивное резюме продуктового дизайнера и иллюстратора: две мини-игры, портфолио и контакты.">
+<meta property="og:title" content="Собери Дашу · резюме Дарьи Флоринской">
+<meta property="og:description" content="Интерактивное резюме продуктового дизайнера и иллюстратора: две мини-игры, портфолио и контакты.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%23FF4D9D%27/%3E%3Crect x=%276%27 y=%2712%27 width=%2720%27 height=%278%27 fill=%27%23FFDE2F%27/%3E%3C/svg%3E">
+<title>Спецпроект · резюме для Авиасейлс</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Golos+Text:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600;700&family=Russo+One&display=swap">
+<style>
+  /* Намеренно одна тема: мемный игровой автомат.
+     Розовый растр → белые окна старого компьютера → тёмный CRT-экран внутри.
+     Роли цвета: фон-доминанта, точки растра, действие, светлая подложка,
+     успех, вторичный холодный, структура, поле контента. */
+  :root {
+    --pink: #FF9ECD;
+    --pink-deep: #FF4D9D;
+    --sun: #FFDE2F;
+    --orange: #FF742E;  /* бывший лайм: пара к жёлтому */
+    --black: #121014;
+    --white: #FFFFFF;
+    --crt: #1B1030;
+    --paper: #FFF6FB;
+    --muted: #6E6478;
+    --font-display: "Unbounded", "Trebuchet MS", sans-serif;
+    --font-body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+    --font-ui: "Russo One", "Unbounded", Impact, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--pink);
+    background-image: radial-gradient(circle, rgba(255, 77, 157, .5) 22%, transparent 23%);
+    background-size: 15px 15px;
+  }
+  .wrap {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 30px 0;
+  }
+  p { margin: 0; }
+
+  /* ---------- приёмы ---------- */
+  .shout {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: .92;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--sun);
+    -webkit-text-stroke: 7px var(--black);
+    paint-order: stroke fill;
+    text-shadow: 7px 7px 0 var(--black);
+    margin: 0;
+  }
+  h1.shout { font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.1; }
+  h2.shout { font-size: clamp(1.5rem, 5.4vw, 2.25rem); -webkit-text-stroke-width: 5px; text-shadow: 5px 5px 0 var(--black); }
+  h2.shout.sun { color: var(--sun); }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0; letter-spacing: -.01em; }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: var(--black);
+    color: var(--sun);
+    border-radius: 10px;
+    padding: 8px 12px;
+    transform: rotate(-2.5deg);
+  }
+
+  .btn {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: var(--pink-deep);
+    color: var(--white);
+    border: 3px solid var(--black);
+    border-radius: 0;
+    padding: 12px 24px;
+    cursor: pointer;
+    box-shadow: 6px 6px 0 var(--black);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn:hover { background: var(--orange); color: var(--black); transform: translate(-2px, -2px); box-shadow: 9px 9px 0 var(--black); }
+  .btn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--black); }
+
+  section { margin-block: 72px 0; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-bottom: 24px; }
+
+  /* ---------- окно ---------- */
+  .window, .gwin {
+    background: var(--white);
+    border: 3px solid var(--black);
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+  .titlebar, .winbar {
+    display: flex; align-items: center; gap: 8px; padding: 8px 8px;
+    border-bottom: 3px solid var(--black);
+  }
+  .titlebar { background: var(--pink-deep); }
+  .winbar { background: var(--pink-deep); }
+  .titlebar .name, .winbar .name { font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .04em; }
+  .titlebar .name, .winbar .name { color: var(--white); }
+  .titlebar .spacer, .winbar .spacer { flex: 1; }
+  .sq {
+    width: 26px; height: 22px; display: grid; place-content: center; flex: none;
+    font-family: var(--font-mono); font-size: 12px; line-height: 1;
+    color: var(--black); background: var(--white);
+    border: 3px solid var(--black);
+    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, .9), inset -2px -2px 0 rgba(18, 16, 20, .28);
+  }
+  .sayrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .sayrow .bubble {
+    flex: 0 1 50%; min-width: 0; margin-bottom: 0;
+    display: flex; align-items: center; min-height: 70px;
+  }
+  @media (max-width: 620px) { .sayrow .bubble { flex: 1 1 100%; } }
+  .snd {
+    font-family: var(--font-ui); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--sun); color: var(--black); border: 3px solid var(--black);
+    padding: 8px 16px; cursor: pointer; white-space: nowrap; flex: none; align-self: stretch;
+    box-shadow: 6px 6px 0 var(--black);
+    min-width: 10.5em; text-align: center;
+    transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .snd:hover { background: var(--orange); transform: translate(-2px, -2px); box-shadow: 9px 9px 0 var(--black); }
+  .snd:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--black); }
+  .snd[aria-pressed="false"] { background: var(--white); color: var(--muted); }
+  /* пиксельная иконка: квадраты без сглаживания, цвет берётся у кнопки */
+  .snd .pic { display: block; fill: currentColor; shape-rendering: crispEdges; }
+  .snd.ico {
+    min-width: 0; width: 48px; height: 48px; padding: 0; font-size: 20px;
+    display: grid; place-content: center; line-height: 1;
+  }
+  /* иконки стоят на одной линии с нижним краем реплики */
+  .ctrls, .sayrow > .snd.ico { align-self: flex-end; }
+  .snd.ghost { background: var(--white); min-width: 0; }
+  .snd[disabled] { opacity: .4; cursor: default; }
+  .snd[disabled]:hover { background: var(--white); transform: none; box-shadow: 6px 6px 0 var(--black); }
+  .snd.ghost:hover { background: var(--sun); }
+  .ctrls { display: flex; gap: 8px; align-items: flex-end; }
+  .window .btn, .window .gauge, .window .screen, .window .bubble, .window .chips .chip,
+  .window .badge, .window .lives i,
+  .gwin .btn, .gwin .opt, .gwin .guess-stage, .gwin .tool, .gwin .vchip, .gwin .badge {
+    border-radius: 0;
+  }
+  .window-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+  .guess { border: 0; border-radius: 0; box-shadow: none; padding: 20px; }
+  @media (max-width: 560px) { .window-body { padding: 12px; } .sq { display: none; } }
+
+  /* ---------- шапка ---------- */
+  .intro { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; padding-top: 8px; }
+  .intro .kicker { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .intro h1.shout { margin-block: 0 12px; }
+  .intro .slogan { margin-bottom: 32px; }
+  .slogan {
+    font-family: var(--font-ui);
+    font-size: clamp(.875rem, 3.2vw, 1.25rem);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    background: var(--orange);
+    border: 3px solid var(--black);
+    border-radius: 12px;
+    padding: 8px 16px;
+    transform: rotate(-1.5deg);
+    box-shadow: 6px 6px 0 var(--black);
+  }
+  .intro .sub {
+    max-width: 88ch;
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 0;
+    background: var(--white);
+    border: 3px solid var(--black);
+    border-radius: 16px;
+    padding: 16px 24px;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+
+  /* ---------- HUD ---------- */
+  .hud { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: stretch; }
+  .hud .left { justify-self: start; }
+  .hud .center { justify-self: center; text-align: center; }
+  .hud .right { justify-self: end; text-align: right; }
+  @media (max-width: 540px) {
+    /* на телефоне три счётчика в один ряд: вертикаль дороже */
+    .hud { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .hud .left, .hud .center, .hud .right { justify-self: stretch; text-align: left; }
+    .gauge { padding: 8px 8px; }
+    .gauge span { font-size: 12px; letter-spacing: .07em; }
+    .gauge b { font-size: 20px; }
+    .gauge.lives .row { gap: 4px; }
+    .gauge.lives i { width: 12px; height: 12px; }
+  }
+  .gauge { display: flex; flex-direction: column; justify-content: center; background: var(--black); border-radius: 12px; padding: 8px 16px; }
+  .gauge span { font-family: var(--font-ui); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #9A90AC; }
+  .gauge b { font-family: var(--font-mono); font-weight: 700; font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--sun); }
+  .gauge.score b { color: var(--orange); }
+  .gauge.miss b { color: var(--pink-deep); }
+  .gauge.lives .row { display: flex; gap: 8px; padding-top: 4px; }
+  .gauge.lives i { width: 15px; height: 15px; background: var(--pink-deep); display: block; border: 3px solid #fff; }
+  .gauge.lives i.off { background: #4A4356; border-color: #6B637A; }
+
+  /* ---------- экран ---------- */
+  .screen { position: relative; border: 3px solid var(--black); border-radius: 14px; overflow: hidden; background: var(--crt); }
+  .screen canvas { display: block; width: 100%; height: auto; touch-action: none; image-rendering: pixelated; }
+  .scan {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, rgba(0, 0, 0, .26) 0 2px, transparent 2px 4px),
+      radial-gradient(130% 100% at 50% 50%, transparent 54%, rgba(0, 0, 0, .5) 100%);
+    mix-blend-mode: multiply;
+  }
+  .overlay { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; text-align: center; padding: 24px; background: rgba(27, 16, 48, .93); }
+  .overlay .ttl {
+    font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(1.125rem, 4.6vw, 2rem); color: var(--sun);
+    -webkit-text-stroke: 5px var(--black); paint-order: stroke fill;
+    text-shadow: 4px 4px 0 var(--black); line-height: 1.32;
+  }
+  .overlay p { color: #EFE8FA; max-width: 88ch; margin: 0 auto; font-size: 14px; line-height: 1.5; }
+  /* заставки игр: узкая колонка текста, а не строка во весь экран */
+  .screen .overlay p { max-width: 44ch; }
+  .guess-stage .overlay p { max-width: 52ch; }
+  .overlay .verdict { font-family: var(--font-ui); color: var(--orange); font-size: 14px; letter-spacing: .02em; }
+  .overlay .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  @media (max-width: 620px) {
+    /* экран на телефоне ниже — заставка должна в него влезать */
+    .overlay { padding: 16px; gap: 8px; }
+    .overlay p { font-size: 14px; line-height: 1.45; }
+    .overlay .ttl { -webkit-text-stroke-width: 4px; text-shadow: 3px 3px 0 var(--black); }
+  }
+
+  /* ---------- реплика ---------- */
+  .bubble {
+    position: relative; align-self: flex-start; white-space: pre-line;
+    background: var(--white); border: 3px solid var(--black); border-radius: 14px;
+    padding: 8px 16px; font-family: var(--font-ui); font-size: 14px; letter-spacing: .02em;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+  .bubble::after {
+    content: ""; position: absolute; left: 24px; bottom: -12px; width: 14px; height: 14px;
+    background: var(--white); border-right: 3px solid var(--black); border-bottom: 3px solid var(--black);
+    transform: rotate(45deg);
+  }
+  .hint {
+    font-family: var(--font-ui); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; min-height: 36px; margin-top: 16px; }
+  .chip { transition: transform .18s ease, box-shadow .18s ease; }
+  .chip {
+    font-family: var(--font-mono); font-weight: 700; font-size: 14px;
+    background: var(--sun); border: 3px solid var(--black); border-radius: 999px;
+    padding: 8px 16px; box-shadow: 6px 6px 0 var(--black);
+  }
+  .chips .empty-note { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .chip.miss {
+    background: var(--white); color: var(--muted);
+    border-style: dashed; border-color: var(--muted); box-shadow: none;
+  }
+  .badge.pulse { animation: badgepop .5s ease-out 2; }
+  @keyframes badgepop {
+    0%, 100% { transform: rotate(-1.5deg) scale(1); }
+    50% { transform: rotate(-1.5deg) scale(1.07); }
+  }
+  html { scrollbar-gutter: stable; }
+  body.lb-open { overflow: hidden; }
+  #lb { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+  #lb::backdrop { background: rgba(18, 16, 20, .92); }
+  #lb img { display: block; max-width: 96vw; max-height: 90vh; border: 3px solid var(--black); border-radius: 14px; background: #fff; }
+  #lbClose {
+    position: absolute; top: -16px; right: -8px; font-family: var(--font-ui); font-size: 12px;
+    background: var(--sun); color: var(--black); border: 3px solid var(--black); border-radius: 999px;
+    padding: 8px 16px; cursor: pointer; text-transform: uppercase;
+  }
+  @keyframes pop { from { transform: scale(.88) translateY(10px); opacity: 0 } to { transform: none; opacity: 1 } }
+
+  .guess {
+    background: var(--white);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .guess-stage {
+    position: relative;
+    border: 3px solid var(--black); border-radius: 14px; overflow: hidden; background: var(--crt);
+    display: grid; place-items: center;
+  }
+  .guess-stage .overlay { border-radius: 0; }
+  @media (max-width: 620px) {
+    /* экрану хватает высоты под заставку, но лишней темноты вокруг фото нет */
+    .guess-stage { min-height: 250px; }
+    .guess-stage canvas, .guess-stage img { max-height: none; }
+  }
+  .guess-stage canvas, .guess-stage img {
+    display: block; width: 100%; aspect-ratio: 16 / 10; max-height: 360px;
+    object-fit: contain; background: var(--crt); margin: 0 auto;
+  }
+  .guess-stage canvas { image-rendering: pixelated; }
+  .guess-stage img { image-rendering: auto; }
+  .guess-body { display: flex; flex-direction: column; gap: 16px; height: 190px; overflow-y: auto; }
+  @media (max-width: 620px) { .guess-body { height: 260px; } }
+  .guess-body.off { visibility: hidden; }
+  .guess-q { font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 1.3; }
+  .guess-opts { display: grid; gap: 8px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .guess-opts .opt { white-space: normal; text-align: center; padding: 12px 12px; font-size: 14px; }
+  /* три колонки только там, где кнопка умещается в одну строку */
+  @media (max-width: 1024px) { .guess-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .guess-opts { gap: 8px; } }
+  .gnext {
+    position: absolute; right: 16px; bottom: 16px; z-index: 3;
+    pointer-events: none;
+  }
+  .gnext .btn { pointer-events: auto; }
+  .guess-stage .overlay { z-index: 4; }
+  .gzoom {
+    position: absolute; left: 16px; bottom: 16px; z-index: 3;
+    font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .04em;
+    background: var(--white); color: var(--black); border: 3px solid var(--black);
+    border-radius: 999px; padding: 8px 16px; cursor: zoom-in; white-space: nowrap;
+    box-shadow: 6px 6px 0 var(--black);
+    transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  .gzoom:hover { background: var(--sun); transform: translate(-2px, -2px); box-shadow: 9px 9px 0 var(--black); }
+  .gzoom:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--black); }
+  #gReveal { cursor: zoom-in; }
+  .gnext .btn { min-width: 200px; transition: opacity .2s ease, transform .18s ease, box-shadow .18s ease, background .18s ease; }
+  .gnext .btn[disabled] { opacity: 0; pointer-events: none; }
+  .gnext .btn[hidden] { display: none; }
+  @media (max-width: 560px) {
+    /* обе кнопки внизу и компактные, но не мельче пальца */
+    .gzoom { left: 8px; bottom: 8px; top: auto; font-size: 12px; padding: 12px; min-height: 44px; }
+    .gnext { right: 8px; bottom: 8px; }
+    .gnext .btn { min-width: 0; padding: 12px 16px; min-height: 44px; font-size: 12px; }
+    .snd.ico { width: 44px; height: 44px; }
+  }
+  .opt {
+    font: inherit; font-family: var(--font-ui); font-size: 14px; cursor: pointer; background: var(--white);
+    border: 3px solid var(--black); border-radius: 999px; padding: 12px 16px; box-shadow: 6px 6px 0 var(--black);
+    line-height: 1.25;
+  }
+  .opt { transition: background .18s ease, transform .18s ease, box-shadow .18s ease; }
+  .opt:hover { background: var(--orange); transform: translate(-2px, -2px); box-shadow: 9px 9px 0 var(--black); }
+  .opt.ok { background: var(--orange); }
+  .opt.no { background: var(--pink-deep); color: #fff; }
+  .verdict { display: flex; flex-direction: column; gap: 8px; }
+  .verdict-t {
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 3.6vw, 1.375rem);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; line-height: 1.2;
+  }
+  .vchip {
+    font-family: var(--font-ui); font-size: .75em; letter-spacing: .08em; text-transform: uppercase;
+    background: var(--orange); border: 3px solid var(--black); border-radius: 999px; padding: 8px 16px;
+  }
+  .vchip.no { background: var(--pink-deep); color: #fff; }
+  .reveal-x { font-size: 16px; line-height: 1.6; }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool { font-family: var(--font-mono); font-weight: 600; font-size: 12px; background: var(--white); border: 3px solid var(--black); border-radius: 999px; padding: 4px 12px; }
+  .btn[disabled] { opacity: .4; cursor: default; }
+  .btn[disabled]:hover { background: var(--pink-deep); color: var(--white); }
+  .btn[disabled]:active { transform: none; box-shadow: 0 0 0 var(--black); }
+
+  /* ---------- маршрут ---------- */
+  .route { display: flex; flex-direction: column; gap: 16px; }
+  .stop {
+    background: var(--white); border: 3px solid var(--black); border-radius: 16px;
+    padding: 16px; display: grid; grid-template-columns: auto 1fr; gap: 16px;
+    box-shadow: 6px 6px 0 var(--black);
+  }
+  .stop-num {
+    align-self: start; font-family: var(--font-ui); font-size: 24px; line-height: 1;
+    background: var(--sun); border: 3px solid var(--black); border-radius: 12px;
+    padding: 8px 16px; transform: rotate(-3deg); font-variant-numeric: tabular-nums;
+  }
+  .stop.final .stop-num { background: var(--orange); }
+  @media (max-width: 620px) {
+    /* на телефоне номер уезжает наверх: колонка текста важнее */
+    .stop { grid-template-columns: 1fr; gap: 8px; padding: 16px; }
+    .stop-num { justify-self: start; }
+  }
+  .stop-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  /* строка не длиннее ~72 знаков: дальше глаз теряет начало следующей */
+  .stop-body p, .stop-body li, details p, .secret-body p { max-width: 88ch; }
+  .stop-body .when { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .stop-body ul { margin: 4px 0 0; padding-left: 16px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+  .nota { background: var(--sun); border: 3px solid var(--black); border-radius: 10px; padding: 8px 12px; font-size: 14px; align-self: flex-start; }
+  .stop.final .nota { background: var(--orange); }
+  .nota b { font-family: var(--font-ui); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+
+  /* ---------- отзывы / FAQ ---------- */
+  .reviews { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .review { background: var(--white); border: 3px solid var(--black); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 6px 6px 0 var(--black); }
+  .stars { font-size: 18px; letter-spacing: .1em; }
+  .review blockquote { margin: 0; font-size: 14px; }
+  .review .who { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+  .faq { background: var(--white); border: 3px solid var(--black); border-radius: 16px; padding: 16px 28px; box-shadow: 6px 6px 0 var(--black); }
+  details { border-bottom: 3px dashed var(--black); padding-block: 4px; }
+  details:last-child { border-bottom: 0; }
+  details summary {
+    cursor: pointer; font-family: var(--font-display); font-weight: 700; font-size: 14px;
+    padding-block: 12px; min-height: 44px; display: flex; align-items: center; gap: 8px;
+  }
+  details p { margin-top: 8px; margin-bottom: 16px; }
+
+  /* ---------- секретный уровень ---------- */
+  .secret { border: 3px solid var(--black); border-radius: 18px; overflow: hidden; box-shadow: 6px 6px 0 var(--pink-deep); }
+  .tape {
+    background: repeating-linear-gradient(45deg, var(--sun) 0 18px, var(--black) 18px 36px);
+    height: 20px;
+  }
+  .secret-body {
+    background: var(--black); color: var(--white); padding: 24px 24px 28px;
+    display: flex; flex-direction: column; gap: 0; align-items: flex-start;
+  }
+  .secret-body .lvl { margin-bottom: 24px; }
+  .secret-body h2 { margin-bottom: 16px; }
+  .secret-body p { margin-bottom: 8px; }
+  .secret-body .warn { margin-bottom: 32px; }
+  .secret-body .lvl {
+    font-family: var(--font-ui); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--sun);
+    background: none; border: 0; border-radius: 0; box-shadow: none; flex: none; padding: 0; overflow: visible;
+  }
+  .secret-body h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(1.25rem, 5vw, 2rem); margin: 0; line-height: 1; }
+  .secret-body p { font-size: 14px; max-width: 88ch; color: #E7E0F0; }
+  .secret-body .warn { font-family: var(--font-mono); font-size: 14px; color: var(--sun); }
+
+  /* ---------- футер ---------- */
+  footer { margin-block: 48px 0; padding-bottom: 56px; }
+  .pass { background: var(--black); border-radius: 20px; padding: 24px; box-shadow: 6px 6px 0 var(--pink-deep); }
+  .pass .rows { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 16px; }
+  .pass .rows div span { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #9A90AC; }
+  .pass .rows div b { font-family: var(--font-mono); font-weight: 700; font-size: 16px; color: var(--white); font-variant-numeric: tabular-nums; }
+  .pass .rows a {
+    color: var(--sun);
+    /* подчёркивание рисуем текстом, а не рамкой блока: иначе оно уезжает
+       вниз вместе с областью нажатия в 44 пикселя */
+    text-decoration: underline; text-decoration-color: var(--orange);
+    text-decoration-thickness: 3px; text-underline-offset: 5px;
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .pass .rows a:hover { color: var(--orange); text-decoration-color: var(--sun); }
+
+  /* атрибут hidden должен скрывать по-настоящему: правила с display
+     у .overlay, .verdict, .guess-opts и canvas перебивают браузерный [hidden] */
+  [hidden] { display: none !important; }
+
+  /* всё прямоугольное */
+  .window, .gwin, .btn, .opt, .gzoom, #lbClose, #lb img, .stop, .review, .faq, .pass, .guess, .guess-stage,
+  .screen, .badge, .gauge, .vchip, .tool, .secret, .bubble, .nota, .card .tag, .slogan,
+  .intro .sub, .stop-num, .lives i, .chips .chip, .snd, .sq, .overlay, .overlay .btn {
+    border-radius: 0 !important;
+  }
+
+  :focus-visible { outline: 4px solid var(--black); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="intro">
+      <p class="kicker"><span class="badge">Спецпроект: Резюме · 10&nbsp;минут · 0% воды, 100% пользы</span></p>
+      <h1 class="shout">Собери Дашу</h1>
+      <p class="slogan">Соберёшь целиком&nbsp;— забираешь в&nbsp;Авиасейлс (желательно на&nbsp;Пхукет)</p>
+      <p class="sub">Я&nbsp;Даша&nbsp;— продуктовый дизайнер, иллюстратор и&nbsp;бывший фронтендер из&nbsp;Алматы. Мечтаю, чтобы работа приносила удовольствие и&nbsp;радовала других людей. Вместо унылого PDF я&nbsp;собрала этот интерактив. Уворачивайся от&nbsp;правок, лови навыки&nbsp;— и&nbsp;моё резюме соберётся само</p>
+    </div>
+
+    <div class="window" style="margin-top:80px">
+      <div class="titlebar">
+        <span class="name">resume_DashaSuperCool.exe</span>
+        <span class="spacer"></span>
+        <span class="sq" aria-hidden="true">_</span><span class="sq" aria-hidden="true">□</span><span class="sq" aria-hidden="true">×</span>
+      </div>
+      <div class="window-body">
+
+        <div class="hud">
+          <div class="gauge lives left"><span>Терпение</span><div class="row" id="lives"><i></i><i></i><i></i></div></div>
+          <div class="gauge score center"><span>Навыки</span><b id="score">0/30</b></div>
+          <div class="gauge right"><span>Секунд</span><b id="time">60</b></div>
+        </div>
+
+        <div class="sayrow">
+          <span class="bubble" id="bubble">Жёлтые блоки&nbsp;— это&nbsp;навыки
+Розовые блоки&nbsp;— это&nbsp;правки</span>
+          <div class="ctrls">
+            <button class="snd ico ghost" type="button" id="pause" title="Пауза" aria-label="Пауза"><svg class="pic" viewBox="0 0 12 12" width="24" height="24" aria-hidden="true" focusable="false"><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="9" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="9" y="10" width="1" height="1"/></svg></button>
+            <button class="snd ico ghost" type="button" id="again" title="Заново" aria-label="Начать заново">⟲</button>
+            <button class="snd ico" type="button" id="snd" aria-pressed="true" title="Звук" aria-label="Звук">♪</button>
+          </div>
+        </div>
+
+        <div class="screen">
+          <canvas id="cv" width="960" height="520" aria-label="Мини-игра: ловите навыки, уклоняйтесь от правок"></canvas>
+          <span class="scan"></span>
+          <div class="overlay" id="ov">
+            <p class="ttl" id="ovTitle">Лови навыки<br>избегай правки</p>
+            <p id="ovText">Собери навыки для&nbsp;резюме, но&nbsp;будь осторожнее&nbsp;— три неадекватные правки и&nbsp;твоё терпение может лопнуть</p>
+            <p class="verdict" id="ovVerdict" hidden></p>
+            <div class="row"><button class="btn" type="button" id="ovBtn">Поехали</button></div>
+          </div>
+        </div>
+
+        <p class="hint"><span>управление: мышь · палец · стрелки ← →</span><span>фон&nbsp;— мой пиксель-арт</span></p>
+
+        <div>
+          <p class="badge" id="chipsHead" style="transform:rotate(-1.5deg)">Навыки, которые были собраны</p>
+          <div class="chips" id="chips"><span class="empty-note">пока пусто</span></div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <section id="route">
+    <div class="sec-head"><h2 class="shout">Чем я&nbsp;занималась 7&nbsp;лет</h2><span class="badge">3&nbsp;года фронтенда, дальше дизайн</span></div>
+    <div class="route">
+
+      <div class="stop">
+        <span class="stop-num">1</span>
+        <div class="stop-body">
+          <h3>4Dclick · Fullstack-разработчик</h3>
+          <p class="when">апрель 2018&nbsp;— июль 2020 · 2&nbsp;года 4&nbsp;месяца</p>
+          <p>Веб-студия полного цикла, больше 30&nbsp;проектов за&nbsp;спиной. Вёрстка, сборка, админки, разработка движка и&nbsp;многое другое. В&nbsp;процессе осознала главную правду: 50% дизайнерских фантазий невозможно сверстать без&nbsp;слёз фронтендера</p>
+          <p class="nota"><b>Чем закончилось:</b> гармоничный рост в&nbsp;более крупную компанию, расстались хорошими друзьями</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <span class="stop-num">2</span>
+        <div class="stop-body">
+          <h3>Rocket Firm · фронтенд-разработчик</h3>
+          <p class="when">август 2020&nbsp;— март 2021 · 8&nbsp;месяцев</p>
+          <p>Писала сайты на&nbsp;Vue.js. Получила легальный чит-код: теперь я&nbsp;точно знаю, во&nbsp;сколько строчек кода разработчикам обойдётся каждая моя «красивая кнопочка»</p>
+          <p class="nota"><b>Чем закончилось:</b> ушла рисовать, творить, созидать</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <span class="stop-num">3</span>
+        <div class="stop-body">
+          <h3>Фриланс · графический дизайнер и&nbsp;иллюстратор</h3>
+          <p class="when">апрель 2021&nbsp;— апрель 2024 · 3&nbsp;года</p>
+          <p>Больше пяти коммерческих проектов в&nbsp;год, полный цикл с&nbsp;клиентом от&nbsp;брифа до&nbsp;сдачи. Параллельно два года училась в&nbsp;XYZ School: концепт-арт, скетчинг, графдизайн. Научилась вести клиентов самостоятельно, без&nbsp;возможности переложить ответственность на&nbsp;проджекта. И&nbsp;рисовать в&nbsp;диджитале</p>
+          <p class="nota"><b>Чем закончилось:</b> у&nbsp;самурая нет цели, только путь</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <span class="stop-num">4</span>
+        <div class="stop-body">
+          <h3>Soft Craft · продуктовый дизайнер</h3>
+          <p class="when">август 2024&nbsp;— март 2025 · 8&nbsp;месяцев</p>
+          <p>Крупный B2B-сервис автоматизации курьерской доставки: заказы, маршруты, склад с&nbsp;ячейками. Я&nbsp;— единственный продуктовый дизайнер, собрала с&nbsp;нуля UI-kit и&nbsp;больше десяти модулей, все дошли до&nbsp;продакшена, 4&nbsp;крупных клиента, около 80 000&nbsp;доставок в&nbsp;месяц</p>
+          <ul>
+            <li>100+ экранов и&nbsp;состояний, UI-kit из&nbsp;50+ элементов</li>
+            <li>Ни&nbsp;один макет не&nbsp;вернулся на&nbsp;переделку за&nbsp;8&nbsp;месяцев</li>
+            <li>Бренд стартапа целиком: логотип, айдентика, продающий лендинг, презентации для&nbsp;инвесторов</li>
+          </ul>
+          <p class="nota"><b>Чем закончилось:</b> стартап закрылся</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <span class="stop-num">5</span>
+        <div class="stop-body">
+          <h3>Floral Express · продуктовый дизайнер</h3>
+          <p class="when">июнь 2026&nbsp;— сентябрь 2026 · проектная работа</p>
+          <p>B2B-маркетплейс оптовых продаж цветов. Компания 18&nbsp;лет в&nbsp;офлайне, IT-подразделения нет, продукт был идеей и&nbsp;MVP на&nbsp;нейронках, а&nbsp;я&nbsp;— единственный продуктовый специалист. Не&nbsp;растерялась и&nbsp;разработала сложный маркетплейс оптовых продаж с&nbsp;множеством каталогов разных стран</p>
+          <ul>
+            <li>Архитектура с&nbsp;нуля: user flow, site map, roadmap, структура для&nbsp;БД, паспорт проекта, база знаний проекта</li>
+            <li>Дизайн-система с&nbsp;нуля: UI-kit, 45&nbsp;токенов, 200+ вариантов компонентов</li>
+            <li>Задачи разработчику, который пишет через нейросети, где любой визуал перевирается каждый раз: писала спецификацию «клик X → результат Y», значения дизайна в&nbsp;текст и&nbsp;константы&nbsp;— всё, что&nbsp;не&nbsp;описано, будет изменено</li>
+            <li>Приёмка задач сократилась с&nbsp;двух дней до&nbsp;полудня благодаря спецификациям</li>
+          </ul>
+          <p class="nota"><b>Чем закончилось:</b> проект сдан день в&nbsp;день</p>
+        </div>
+      </div>
+
+      <div class="stop final">
+        <span class="stop-num">6</span>
+        <div class="stop-body">
+          <h3>Авиасейлс · дизайнер спецпроектов</h3>
+          <p class="when">хотелось бы&nbsp;с&nbsp;ближайшего понедельника</p>
+          <p>Готова шатать рынок спецпроектов</p>
+          <p class="nota"><b>Чем закончится:</b> будем расти и&nbsp;делать смешное</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="secret">
+      <span class="tape"></span>
+      <div class="secret-body">
+        <p class="lvl">Секретный уровень · только для&nbsp;смелых</p>
+        <h2>Скучное портфолио</h2>
+        <p>Здесь нет шуток&nbsp;— только таблицы с&nbsp;фильтрами, матрицы состояний, карты сущностей и&nbsp;ролевые модели. Сто с&nbsp;лишним экранов, из&nbsp;них смешных&nbsp;— ноль</p>
+        <p class="warn">Осторожно: содержит словосочетание «семантические токены»</p>
+        <a class="btn" href="https://drive.google.com/file/d/1o28Iiu7FJkFQuOldElnISN5-0KYTjl-f/view" target="_blank" rel="noopener">Всё равно открыть</a>
+      </div>
+      <span class="tape"></span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="shout sun">Угадай по&nbsp;пикселям</h2><span class="badge">всё нарисовала я</span></div>
+    <div class="gwin">
+    <div class="winbar">
+      <span class="name">угадайка.exe</span>
+      <span class="spacer"></span>
+      <span class="sq" aria-hidden="true">_</span><span class="sq" aria-hidden="true">□</span><span class="sq" aria-hidden="true">×</span>
+    </div>
+    <div class="guess">
+      <div class="hud">
+        <div class="gauge left"><span>Раунд</span><b id="gRound">1/6</b></div>
+        <div class="gauge score center"><span>Угадано</span><b id="gScore">0</b></div>
+        <div class="gauge miss right"><span>Мимо</span><b id="gMiss">0</b></div>
+      </div>
+
+      <div class="sayrow">
+        <span class="bubble" id="gBubble">Картинка сжата до&nbsp;30&nbsp;пикселей
+Угадай, что&nbsp;на&nbsp;ней</span>
+        <button class="snd ico" type="button" aria-pressed="true" title="Звук" aria-label="Звук">♪</button>
+      </div>
+
+      <div class="guess-stage">
+        <canvas id="gCanvas" width="1280" height="800"></canvas>
+        <img id="gReveal" alt="" hidden>
+        <div class="overlay" id="gOv">
+          <p class="ttl" id="gOvTtl">Пиксельный<br>детектив</p>
+          <p id="gOvText">Шесть моих работ из&nbsp;разных сфер, сжатых до&nbsp;30&nbsp;пикселей. Проверь свой дизайнерский глаз или интуицию. Шесть раундов, подсказок нет.</p>
+          <div class="row"><button class="btn" type="button" id="gStart">Поехали</button></div>
+        </div>
+        <button class="gzoom" type="button" id="gZoom" hidden>⤢ На&nbsp;весь экран</button>
+        <div class="gnext"><button class="btn" type="button" id="gNext" disabled>Дальше</button></div>
+      </div>
+      <p class="hint"><span>ответ: клик или клавиши 1 2 3</span><span>фото открывается на&nbsp;весь экран</span></p>
+      <div class="guess-body off" id="gBody">
+        <p class="guess-q" id="gQ">Что&nbsp;это?</p>
+        <div class="guess-opts" id="gOpts"></div>
+        <div class="verdict" id="gRev" hidden>
+          <p class="verdict-t"><span class="vchip" id="gChip">Верно</span><span id="gTitle"></span></p>
+          <p class="reveal-x" id="gText"></p>
+          <div class="tools" id="gTools"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="shout sun">Отзывы</h2><span class="badge">настоящие</span></div>
+    <div class="reviews">
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <blockquote>«Закрыла весь дизайн продукта: от&nbsp;логики модулей до&nbsp;UI-кита. Макеты уходили в&nbsp;работу без&nbsp;доработок, решения на&nbsp;демо защищала аргументами, а&nbsp;не&nbsp;вкусовщиной.»</blockquote>
+        <p class="who">Эдуард, Project Manager · Soft Craft</p>
+      </div>
+      <div class="review">
+        <p class="stars">★★★★★</p>
+        <blockquote>«Быстро вникает в&nbsp;новые задачи, умеет находить общий язык с&nbsp;командой. Не&nbsp;нужно переживать о&nbsp;дедлайнах и&nbsp;коммуникации.»</blockquote>
+        <p class="who">Владислав, Team Lead · Rocket Firm</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2 class="shout">Частые вопросы</h2></div>
+    <div class="faq">
+      <details>
+        <summary>Зачем дизайнеру три года фронтенда?</summary>
+        <p>Чтобы знать, что&nbsp;из&nbsp;придуманного реально собрать, за&nbsp;какое время и&nbsp;какой ценой. Я&nbsp;сама верстала, сама ломала чужие макеты и&nbsp;сама их&nbsp;чинила. Поэтому спорю с&nbsp;разработкой редко и&nbsp;по&nbsp;делу</p>
+      </details>
+      <details>
+        <summary>Почему в&nbsp;портфолио B2B-таблицы, а&nbsp;не&nbsp;смешные картинки?</summary>
+        <p>Потому что&nbsp;последние два года я&nbsp;проектировала склады и&nbsp;маршруты, а&nbsp;рисовала для&nbsp;себя. Но&nbsp;душа требует смешных картинок, конечно!</p>
+      </details>
+      <details>
+        <summary>Моушн правда не&nbsp;умеешь?</summary>
+        <p>Правда, After Effects не&nbsp;знаю. Интерфейсные анимации расписывала в&nbsp;макетах и&nbsp;защищала перед фронтендом, но&nbsp;брендовый моушн с&nbsp;нуля пока не&nbsp;делала. Зато быстро учусь&nbsp;— и&nbsp;очень хочу освоить моушн-дизайн</p>
+      </details>
+      <details>
+        <summary>У&nbsp;тебя правда шесть котов?</summary>
+        <p>Правда. Я&nbsp;безумная кошатница, и&nbsp;это единственный пункт резюме, который я&nbsp;не&nbsp;готова обсуждать (на&nbsp;самом деле если спросить меня про&nbsp;котов&nbsp;— пропадёшь на&nbsp;пару часов, пока я&nbsp;не&nbsp;покажу все 100500&nbsp;фоток моих котов)</p>
+      </details>
+      <details>
+        <summary>Почему Авиасейлс?</summary>
+        <p>Потому что&nbsp;это&nbsp;единственная вакансия, где в&nbsp;требованиях написано «кайфуешь от&nbsp;создания смешных и&nbsp;эмоциональных визуалов», а&nbsp;я&nbsp;кайфую</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="pass">
+      <h2 class="shout sun" style="font-size:clamp(1.3rem,5vw,2rem)">Написать Даше</h2>
+      <div class="rows">
+        <div><span>Имя</span><b>Флоринская Дарья</b></div>
+        <div><span>Telegram</span><b><a href="https://t.me/da_dottts" target="_blank" rel="noopener">@da_dottts</a></b></div>
+        <div><span>Почта</span><b><a href="mailto:punopuni.arts@gmail.com">punopuni.arts@gmail.com</a></b></div>
+        <div><span>WhatsApp</span><b><a href="https://wa.me/77073468840" target="_blank" rel="noopener">+7 707 346 88 40</a></b></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<dialog id="lb"><button type="button" id="lbClose">Закрыть</button><img id="lbImg" alt=""></dialog>
+
+<script>
+(function () {
+  var cv = document.getElementById('cv');
+  var ctx = cv.getContext('2d');
+  /* на телефоне поле вертикальное и вдвое мельче по координатам:
+     тогда подписи на блоках остаются читаемыми, а не 6 пикселей */
+  var MOB = !!(window.matchMedia && window.matchMedia('(max-width: 620px)').matches);
+  var W = MOB ? 440 : 960, H = MOB ? 600 : 520;
+  cv.width = W; cv.height = H;
+  var FS = MOB ? 15 : 18;        /* кегль подписи на блоке */
+  var FSB = MOB ? 20 : 26;       /* всплывающие +1 / −1 */
+  var FSP = MOB ? 15 : 19;       /* подпись на ракетке */
+  var MAXW = MOB ? 230 : 340;    /* предел ширины блока: на телефоне не шире половины поля */
+  var FSMIN = MOB ? 11 : 14;     /* ниже этого кегль не опускаем */
+  var VS = H / 520;              /* скорость под высоту поля */
+  ctx.imageSmoothingEnabled = false;
+
+  /* порядок = приоритет под вакансию: чем раньше в списке,
+     тем раньше навык выпадает в игре */
+  var SKILLS = ['Figma', 'Photoshop', 'Illustrator', 'Иллюстрация', 'Procreate',
+    'UI-kit', 'Лендинг', 'Баннеры', 'Типографика', 'Композиция', 'Цвет', 'Иерархия',
+    'Презентация', 'Нейросети', 'Хиханьки', 'Хаханьки', 'Логотип', 'Айдентика',
+    'Продуктовый дизайн', 'Прототип', 'Дизайн-система', 'Компик', 'User flow', 'Roadmap',
+    'Mobile-first', 'Адаптив', 'HTML', 'CSS', 'JavaScript', 'Vue.js'];
+  var TOTAL = SKILLS.length;
+
+  var EDITS = ['Поиграй со шрифтами', 'Я и сам могу такое', 'Ой, что там делать',
+    'Делов на пять минут', 'Сделай как у Apple', 'Бюджет 3000 ₽', 'видео.jpg', 'песня.psd',
+    'Надо вчера', 'Логотип побольше', 'Как у конкурента', 'Покажи все 20 вариантов',
+    'Фотки возьми у\u00a0конкурентов', 'Скинь в ворде', 'Comic Sans', 'Верни как было',
+    'Исходники в пдф', 'Просто покрась', 'Текст сами впишем'];
+
+  var SAY_GOOD = ['во!', 'записала', 'есть такое', 'умею', 'моё', 'ещё как', 'в резюме'];
+  var SAY_BAD = ['ой', 'ну зачем', 'я так не играю', 'это больно', 'опять', 'ауч'];
+
+  var state = 'idle';
+  var player = { x: W / 2, w: MOB ? 84 : 156, h: MOB ? 26 : 30 };
+  var items = [], bursts = [], sparks = [], collected = [], pool = [];
+  var lives = 3, left = 60, spawnAt = 0, last = 0, tAcc = 0, nextSkill = 0, paused = false;
+
+  var elScore = document.getElementById('score');
+  var elTime = document.getElementById('time');
+  var elLives = document.getElementById('lives');
+  var elChips = document.getElementById('chips');
+  var elChipsHead = document.getElementById('chipsHead');
+  var elBubble = document.getElementById('bubble');
+  var ov = document.getElementById('ov');
+  var ovTitle = document.getElementById('ovTitle');
+  var ovText = document.getElementById('ovText');
+  var ovVerdict = document.getElementById('ovVerdict');
+  var ovBtn = document.getElementById('ovBtn');
+
+  var C = { bg: '#1B1030', grid: '#2A1A4A', black: '#121014', lime: '#FFDE2F', pink: '#FF4D9D', sun: '#FF742E', sky: '#FFDE2F' };
+
+  var bg = new Image(), bgOk = false;
+  bg.onload = function () { bgOk = true; if (state !== 'play') draw(); };
+  bg.src = 'img/px-statue.png';
+
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var actx = null, sndOn = true;
+  function audio() {
+    if (!AC) return null;
+    if (!actx) { try { actx = new AC(); } catch (e) { return null; } }
+    if (actx.state === 'suspended') actx.resume();
+    return actx;
+  }
+  function beep(freq, dur, type, vol, slideTo) {
+    if (!sndOn) return;
+    var a = audio(); if (!a) return;
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'square';
+    o.frequency.setValueAtTime(freq, a.currentTime);
+    if (slideTo) o.frequency.linearRampToValueAtTime(slideTo, a.currentTime + dur);
+    g.gain.setValueAtTime(vol || 0.05, a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime + dur + 0.02);
+  }
+  function chord(list, step, dur, vol) {
+    list.forEach(function (f, i) { setTimeout(function () { beep(f, dur, 'square', vol); }, i * step); });
+  }
+  function sfxGood() { beep(680, .06, 'square', .045); setTimeout(function () { beep(1020, .08, 'square', .045); }, 55); }
+  function sfxPop() { chord([880, 1175, 1568], 50, .07, .04); }
+  function sfxBad() { beep(180, .24, 'sawtooth', .06, 70); }
+  function sfxStart() { chord([392, 523, 659], 70, .08, .05); }
+  function sfxWin() { chord([523, 659, 784, 1047, 1319], 110, .14, .05); }
+  function sfxOver() { chord([392, 311, 247], 150, .22, .05); }
+  function sfxTick() { beep(960, .04, 'square', .03); }
+
+  function say(t) { elBubble.textContent = t; }
+  function pick(a) { return a[(Math.random() * a.length) | 0]; }
+
+  function renderChips() {
+    if (!collected.length) { elChips.innerHTML = '<span class="empty-note">пока пусто</span>'; return; }
+    elChips.innerHTML = '';
+    for (var i = 0; i < collected.length; i++) {
+      var s = document.createElement('span');
+      s.className = 'chip';
+      s.textContent = collected[i];
+      elChips.appendChild(s);
+    }
+  }
+  function renderResult() {
+    elChipsHead.textContent = 'Результат: ' + collected.length + ' из ' + TOTAL;
+    elChips.innerHTML = '';
+    var i, s;
+    for (i = 0; i < collected.length; i++) {
+      s = document.createElement('span');
+      s.className = 'chip'; s.textContent = collected[i];
+      elChips.appendChild(s);
+    }
+    for (i = 0; i < SKILLS.length; i++) {
+      if (collected.indexOf(SKILLS[i]) !== -1) continue;
+      s = document.createElement('span');
+      s.className = 'chip miss'; s.textContent = SKILLS[i];
+      elChips.appendChild(s);
+    }
+    elChipsHead.classList.remove('pulse');
+    void elChipsHead.offsetWidth;
+    elChipsHead.classList.add('pulse');
+  }
+
+  function renderLives() {
+    var d = elLives.children;
+    for (var i = 0; i < d.length; i++) d[i].className = i < lives ? '' : 'off';
+  }
+
+  function reset() {
+    items = []; bursts = []; sparks = []; collected = [];
+    pool = SKILLS.slice();
+    lives = 3; left = 60; spawnAt = 0; tAcc = 0; nextSkill = 0; paused = false;
+    player.x = W / 2;
+    elScore.textContent = '0/' + TOTAL;
+    elTime.textContent = '60';
+    elChipsHead.classList.remove('pulse');
+    elChipsHead.textContent = 'Навыки, которые были собраны';
+    renderLives(); renderChips();
+    say('Жёлтые блоки — это навыки\nРозовые блоки — это правки');
+  }
+
+  function start() { reset(); state = 'play'; ov.hidden = true; sfxStart(); last = performance.now(); requestAnimationFrame(loop); paintPause(); }
+
+  /* пауза: пробел и уход со вкладки */
+  function drawPause() {
+    ctx.fillStyle = 'rgba(27,16,48,0.86)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = C.lime;
+    ctx.font = '700 ' + (MOB ? 26 : 38) + 'px "IBM Plex Mono", monospace';
+    ctx.fillText('ПАУЗА', W / 2, H / 2 - 14);
+    ctx.fillStyle = '#EFE8FA';
+    ctx.font = '600 ' + (MOB ? 13 : 16) + 'px "IBM Plex Mono", monospace';
+    ctx.fillText(MOB ? 'нажми, чтобы продолжить' : 'пробел — продолжить', W / 2, H / 2 + 26);
+  }
+  function setPause(on) {
+    if (state !== 'play' || paused === on) return;
+    paused = on;
+    if (paused) { draw(); drawPause(); }
+    else { last = performance.now(); requestAnimationFrame(loop); }
+    paintPause();
+  }
+  document.addEventListener('visibilitychange', function () { if (document.hidden) setPause(true); });
+  cv.addEventListener('pointerdown', function () { if (paused) setPause(false); });
+
+  function finish(how) {
+    state = 'over';
+    paused = false;
+    var n = collected.length;
+    var lastFew = collected.slice(-3).join(', ');
+    var title, text, verdict;
+    if (how === 'win') {
+      title = 'Резюме собрано<br>целиком';
+      text = 'Все ' + TOTAL + ' навыков пойманы, и\u00a0осталось ' + left + ' секунд.<br>Так\u00a0я\u00a0обычно и\u00a0работаю';
+      verdict = 'Можно звать на\u00a0собеседование';
+    } else if (how === 'lives') {
+      title = 'Терпение<br>кончилось';
+      text = 'Правильно, такие правочки мы\u00a0не\u00a0терпим. Собрано навыков: ' + n + ' из ' + TOTAL
+        + (n ? '<br>Последними попались: ' + lastFew : '');
+      verdict = 'Попробуй ещё раз, это\u00a0бесплатно';
+    } else {
+      title = 'Время<br>вышло';
+      text = 'Собрано навыков: ' + n + ' из ' + TOTAL
+        + (n ? '. Последними попались: ' + lastFew : '')
+        + '<br>Что\u00a0упустил\u00a0— серым в\u00a0списке под\u00a0экраном';
+      if (n >= 22) verdict = 'Почти всё. Остальное дорасскажу голосом';
+      else if (n >= 14) verdict = 'Неплохо. Половина меня уже у\u00a0тебя';
+      else if (n >= 6) verdict = 'Правки оказались сильнее. Со\u00a0мной такое тоже бывает';
+      else verdict = 'Дедлайн победил. Зато честно';
+    }
+    ovTitle.innerHTML = title;
+    ovText.innerHTML = text;
+    ovVerdict.textContent = verdict;
+    ovVerdict.hidden = false;
+    ovBtn.textContent = 'Ещё раз';
+    ov.hidden = false;
+    renderResult();
+    say(how === 'win' ? 'всё, я ваша' : (how === 'lives' ? 'такие вот дела, собачка' : 'ну как?'));
+    if (how === 'win') sfxWin(); else sfxOver();
+    paintPause();
+    draw();
+  }
+
+  function pop(x, y, n) {
+    var cols = [C.lime, C.sun, C.sky, '#FFFFFF'];
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * Math.PI * 2;
+      var sp = 110 + Math.random() * 240;
+      sparks.push({
+        x: x, y: y,
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp - 90,
+        size: 4 + ((Math.random() * 3) | 0) * 4,
+        col: cols[(Math.random() * cols.length) | 0],
+        life: 1
+      });
+    }
+  }
+
+  function popTwins(label) {
+    var n = 0;
+    for (var i = items.length - 1; i >= 0; i--) {
+      if (!items[i].bad && items[i].label === label) {
+        pop(items[i].x + items[i].w / 2, items[i].y + items[i].h / 2, 18);
+        items.splice(i, 1);
+        n++;
+      }
+    }
+    return n;
+  }
+
+  function spawn() {
+    /* правок со временем становится больше: в начале игра учит, в конце давит */
+    var badP = (MOB ? 0.22 : 0.25) + (MOB ? 0.17 : 0.21) * (60 - left) / 60;
+    var isBad = pool.length === 0 ? true : Math.random() < badP;
+    /* навыки падают строго по порядку важности;
+       когда список кончился — снова по кругу из непойманных */
+    var label;
+    if (isBad) {
+      label = pick(EDITS);
+    } else {
+      for (var n = 0; n < SKILLS.length; n++) {
+        var si = (nextSkill + n) % SKILLS.length;
+        if (collected.indexOf(SKILLS[si]) === -1) {
+          nextSkill = si + 1; label = SKILLS[si]; break;
+        }
+      }
+      if (!label) { isBad = true; label = pick(EDITS); }
+    }
+    /* длинную подпись ужимаем кеглем, а не шириной блока:
+       иначе правка перекрывает поле и уворачиваться некуда */
+    var fs = FS, inner = MAXW - 30;
+    ctx.font = '600 ' + fs + 'px "IBM Plex Mono", monospace';
+    var tw = ctx.measureText(label).width;
+    if (tw > inner) {
+      fs = Math.max(FSMIN, Math.floor(fs * inner / tw));
+      ctx.font = '600 ' + fs + 'px "IBM Plex Mono", monospace';
+      tw = ctx.measureText(label).width;
+    }
+    var w = Math.min(MAXW, Math.round((tw + 30) / 4) * 4);
+    var vy = (118 + Math.random() * 105 + (60 - left) * 1.35) * VS;
+    /* правку не ставим ровно туда, куда в тот же момент падает навык:
+       иначе выбор «поймать или выжить» решается не умением, а случаем */
+    var spawnY = H - 52, x = 0, tries = isBad ? 8 : 1;
+    for (var a = 0; a < tries; a++) {
+      x = Math.round((20 + Math.random() * (W - 40 - w)) / 4) * 4;
+      var tn = (spawnY + 44) / vy, clash = false;
+      for (var q = 0; q < items.length; q++) {
+        var o = items[q];
+        if (o.bad) continue;
+        if (Math.abs((spawnY - o.y) / o.vy - tn) > 0.5) continue;
+        if (Math.abs((o.x + o.w / 2) - (x + w / 2)) < (o.w + w) / 2 + player.w) { clash = true; break; }
+      }
+      if (!clash) break;
+    }
+    items.push({ x: x, y: -44, w: w, h: MOB ? 32 : 36, vy: vy, bad: isBad, label: label, fs: fs });
+  }
+
+  function block(x, y, w, h, fill) {
+    x = Math.round(x); y = Math.round(y);
+    ctx.fillStyle = C.black;
+    ctx.fillRect(x - 4, y - 4, w + 8, h + 8);
+    ctx.fillStyle = fill;
+    ctx.fillRect(x, y, w, h);
+  }
+
+  function draw() {
+    ctx.fillStyle = C.bg;
+    ctx.fillRect(0, 0, W, H);
+    if (bgOk) {
+      var sc = Math.max(W / bg.width, H / bg.height);
+      var bw = bg.width * sc, bh = bg.height * sc;
+      ctx.drawImage(bg, Math.round((W - bw) / 2), Math.round((H - bh) / 2), Math.round(bw), Math.round(bh));
+      ctx.fillStyle = 'rgba(27,16,48,0.72)';
+      ctx.fillRect(0, 0, W, H);
+    }
+    ctx.fillStyle = bgOk ? 'rgba(42,26,74,0.45)' : C.grid;
+    for (var gx = 0; gx < W; gx += 40) ctx.fillRect(gx, 0, 2, H);
+    for (var gy = 0; gy < H; gy += 40) ctx.fillRect(0, gy, W, 2);
+
+    ctx.fillStyle = C.pink;
+    for (var dx = 0; dx < W; dx += 24) ctx.fillRect(dx, H - 70, 12, 4);
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      block(it.x, it.y, it.w, it.h, it.bad ? C.pink : C.lime);
+      ctx.fillStyle = C.black;
+      ctx.font = '600 ' + (it.fs || FS) + 'px "IBM Plex Mono", monospace';
+      ctx.fillText(it.label, Math.round(it.x + it.w / 2), Math.round(it.y + it.h / 2 + 1));
+    }
+
+    for (var s = 0; s < sparks.length; s++) {
+      var sp = sparks[s];
+      ctx.globalAlpha = Math.max(0, Math.min(1, sp.life));
+      ctx.fillStyle = C.black;
+      ctx.fillRect(Math.round(sp.x) - 2, Math.round(sp.y) - 2, sp.size + 4, sp.size + 4);
+      ctx.fillStyle = sp.col;
+      ctx.fillRect(Math.round(sp.x), Math.round(sp.y), sp.size, sp.size);
+      ctx.globalAlpha = 1;
+    }
+
+    for (var b = 0; b < bursts.length; b++) {
+      var bu = bursts[b];
+      ctx.globalAlpha = Math.max(0, Math.min(1, bu.life));
+      ctx.font = '700 ' + FSB + 'px "IBM Plex Mono", monospace';
+      ctx.fillStyle = C.black;
+      ctx.fillText(bu.text, Math.round(bu.x) + 3, Math.round(bu.y) + 3);
+      ctx.fillStyle = bu.col;
+      ctx.fillText(bu.text, Math.round(bu.x), Math.round(bu.y));
+      ctx.globalAlpha = 1;
+    }
+
+    var px = Math.round(player.x - player.w / 2), py = H - 52;
+    block(px, py, player.w, player.h, C.sun);
+    ctx.fillStyle = C.black;
+    ctx.font = '700 ' + FSP + 'px "IBM Plex Mono", monospace';
+    ctx.fillText('ДАША', Math.round(player.x), py + player.h / 2 + 1);
+  }
+
+  function loop(now) {
+    if (state !== 'play' || paused) return;
+    var dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    var justCaught = null;
+
+    tAcc += dt;
+    if (tAcc >= 1) {
+      tAcc -= 1; left -= 1;
+      elTime.textContent = left < 0 ? 0 : left;
+      if (left === 10) say('десять секунд!');
+      if (left <= 5 && left > 0) sfxTick();
+      if (left <= 0) { finish('time'); return; }
+    }
+
+    spawnAt -= dt;
+    if (spawnAt <= 0) { spawn(); spawnAt = Math.max(0.32, 0.92 - (60 - left) * 0.009); }
+
+    var py = H - 52;
+    for (var i = items.length - 1; i >= 0; i--) {
+      var it = items[i];
+      it.y += it.vy * dt;
+      var hit = it.y + it.h >= py && it.y <= py + player.h &&
+        it.x + it.w >= player.x - player.w / 2 && it.x <= player.x + player.w / 2;
+      if (hit) {
+        if (it.bad) {
+          lives -= 1; renderLives();
+          bursts.push({ x: it.x + it.w / 2, y: py - 16, text: '−1', col: C.pink, life: 1 });
+          sfxBad();
+          say(pick(SAY_BAD));
+          if (lives <= 0) { items.splice(i, 1); finish('lives'); return; }
+        } else {
+          var k = pool.indexOf(it.label);
+          if (k !== -1) pool.splice(k, 1);
+          collected.push(it.label);
+          elScore.textContent = collected.length + '/' + TOTAL;
+          renderChips();
+          bursts.push({ x: it.x + it.w / 2, y: py - 16, text: '+1', col: C.lime, life: 1 });
+          pop(it.x + it.w / 2, it.y + it.h / 2, 14);
+          sfxGood();
+          say(pick(SAY_GOOD));
+          justCaught = it.label;
+          if (!pool.length) { items.splice(i, 1); finish('win'); return; }
+        }
+        items.splice(i, 1);
+        continue;
+      }
+      if (it.y > H + 60) items.splice(i, 1);
+    }
+
+    if (justCaught && popTwins(justCaught)) {
+      sfxPop();
+      say('и эти туда же');
+    }
+
+    for (var s = sparks.length - 1; s >= 0; s--) {
+      var sp = sparks[s];
+      sp.x += sp.vx * dt;
+      sp.y += sp.vy * dt;
+      sp.vy += 540 * dt;
+      sp.life -= dt * 1.15;
+      if (sp.life <= 0) sparks.splice(s, 1);
+    }
+
+    for (var b = bursts.length - 1; b >= 0; b--) {
+      bursts[b].y -= 36 * dt;
+      bursts[b].life -= dt * 1.6;
+      if (bursts[b].life <= 0) bursts.splice(b, 1);
+    }
+
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  function moveTo(clientX) {
+    var r = cv.getBoundingClientRect();
+    var x = (clientX - r.left) / r.width * W;
+    player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, x));
+    if (state !== 'play') draw();
+  }
+  cv.addEventListener('pointermove', function (e) { moveTo(e.clientX); });
+  cv.addEventListener('pointerdown', function (e) { moveTo(e.clientX); });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === ' ' || e.code === 'Space') {
+      if (state === 'play') { e.preventDefault(); setPause(!paused); }
+      return;
+    }
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (state === 'play') e.preventDefault();
+    player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, player.x + (e.key === 'ArrowLeft' ? -64 : 64)));
+    if (state !== 'play') draw();
+  });
+
+  document.getElementById('ovBtn').addEventListener('click', start);
+  document.getElementById('again').addEventListener('click', function () { paused = false; start(); });
+
+  var pauseBtn = document.getElementById('pause');
+  var ICO_PAUSE = '<svg class="pic" viewBox="0 0 12 12" width="24" height="24" aria-hidden="true" focusable="false"><rect x="2" y="1" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="4" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="9" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="9" y="10" width="1" height="1"/></svg>';
+  var ICO_PLAY = '<svg class="pic" viewBox="0 0 12 12" width="24" height="24" aria-hidden="true" focusable="false"><rect x="4" y="1" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/></svg>';
+  function paintPause() {
+    pauseBtn.innerHTML = paused ? ICO_PLAY : ICO_PAUSE;
+    pauseBtn.title = paused ? 'Продолжить' : 'Пауза';
+    pauseBtn.setAttribute('aria-label', pauseBtn.title);
+    pauseBtn.disabled = state !== 'play';
+  }
+  pauseBtn.addEventListener('click', function () {
+    if (state !== 'play') return;
+    setPause(!paused);
+  });
+  paintPause();
+
+  function blip(up) {
+    var a = audio(); if (!a) return;
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(up ? 620 : 960, a.currentTime);
+    o.frequency.linearRampToValueAtTime(up ? 960 : 420, a.currentTime + .09);
+    g.gain.setValueAtTime(.05, a.currentTime);
+    g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + .09);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime + .11);
+  }
+  /* только переключатели звука: у кнопки «заново» свой текст */
+  var sndBtns = Array.prototype.slice.call(document.querySelectorAll('.snd[aria-pressed]'));
+  function paintSnd() {
+    for (var i = 0; i < sndBtns.length; i++) {
+      sndBtns[i].textContent = '♪';
+      sndBtns[i].setAttribute('aria-pressed', sndOn ? 'true' : 'false');
+      sndBtns[i].title = sndOn ? 'Звук включён' : 'Звук выключен';
+    }
+  }
+  for (var si = 0; si < sndBtns.length; si++) {
+    sndBtns[si].addEventListener('click', function () {
+      sndOn = !sndOn; paintSnd(); blip(sndOn);
+    });
+  }
+  paintSnd();
+
+  function wakeAudio() {
+    audio();
+    window.removeEventListener('pointerdown', wakeAudio);
+    window.removeEventListener('keydown', wakeAudio);
+  }
+  window.addEventListener('pointerdown', wakeAudio);
+  window.addEventListener('keydown', wakeAudio);
+
+  var lb = document.getElementById('lb');
+  var lbImg = document.getElementById('lbImg');
+  lb.addEventListener('close', function () { document.body.classList.remove('lb-open'); });
+
+  document.addEventListener('click', function (e) {
+    if (e.target === lb || e.target.id === 'lbClose') { if (lb.close) lb.close(); }
+  });
+
+  var CATS = [
+    {
+      items: [
+        {
+          s: 'img/ui-order.jpg', a: 'Создание заказа', o: ['Анкета в поликлинике', 'Форма заказа пиццы'],
+          t: 'UI/UX · Интерфейс B2B-системы Mercurio',
+          x: 'Собираю сложные B2B- и\u00a0SaaS-системы: продумываю логику с\u00a0нуля, опираясь на\u00a0пожелания заказчика, и\u00a0довожу до\u00a0продакшена. Подбираю шрифты, типографику и\u00a0палитру в\u00a0единую композицию под\u00a0тон проекта',
+          k: ['Figma']
+        },
+        {
+          s: 'img/ui-cover.jpg', a: 'Страница авторизации', o: ['Анкета в поликлинике', 'Регистрация в игре'],
+          t: 'UI/UX · Авторизация в\u00a0маркетплейсе цветов',
+          x: 'Собираю сложные B2B- и\u00a0SaaS-системы: продумываю логику с\u00a0нуля, опираясь на\u00a0пожелания заказчика, и\u00a0довожу до\u00a0продакшена. Подбираю шрифты, типографику и\u00a0палитру в\u00a0единую композицию под\u00a0тон проекта',
+          k: ['Figma']
+        }
+      ]
+    },
+    {
+      items: [
+        {
+          s: 'img/gd-mercurio.jpg', a: 'Логотип', o: ['Схема метро', 'Иконки погоды'],
+          t: 'Графический дизайн · Логотип Mercurio',
+          x: 'Собираю айдентику бренда, продающие лендинги, баннеры и\u00a0презентации для\u00a0инвесторов. Делаю базовую типографику, мерч, стикеры и\u00a0вижуалы для\u00a0соцсетей\u00a0— полный пакет графического дизайнера',
+          k: ['Illustrator', 'Photoshop', 'Figma']
+        },
+        {
+          s: 'img/gd-avtobys.jpg', a: 'Пост для соцсетей', o: ['Обложка альбома', 'Заставка телеканала'],
+          t: 'Графический дизайн · Вижуал для\u00a0инстаграма',
+          x: 'Собираю айдентику бренда, продающие лендинги, баннеры и\u00a0презентации для\u00a0инвесторов. Делаю базовую типографику, мерч, стикеры и\u00a0вижуалы для\u00a0соцсетей\u00a0— полный пакет графического дизайнера',
+          k: ['Figma', 'Illustrator', 'Photoshop']
+        }
+      ]
+    },
+    {
+      items: [
+        {
+          s: 'img/art-staff.jpg', a: 'Волшебный посох', o: ['Подсвечник', 'Швабра'],
+          t: 'Растровая иллюстрация · Волшебный посох',
+          x: 'Рисую в\u00a0цифре: на\u00a0планшете в\u00a0Photoshop, в\u00a0Procreate и\u00a0на\u00a0бумаге',
+          k: ['Procreate', 'Photoshop']
+        },
+        {
+          s: 'img/art-mill.jpg', a: 'Мельница', o: ['Маяк', 'Карусель'],
+          t: 'Растровая иллюстрация · Мельница',
+          x: 'Рисую в\u00a0цифре: на\u00a0планшете в\u00a0Photoshop, в\u00a0Procreate и\u00a0на\u00a0бумаге',
+          k: ['Photoshop']
+        }
+      ]
+    },
+    {
+      items: [
+        {
+          s: 'img/vec-blonde.jpg', a: 'Портрет', o: ['Логотип салона', 'Иконка профиля'],
+          t: 'Векторная иллюстрация · Портрет',
+          x: 'Работаю в\u00a0векторе: соберу что\u00a0угодно, в\u00a0том числе под\u00a0печать',
+          k: ['Illustrator']
+        },
+        {
+          s: 'img/vec-beige.jpg', a: 'Портрет', o: ['Карта метро', 'Схема сборки'],
+          t: 'Векторная иллюстрация · Портрет в\u00a0профиль',
+          x: 'Работаю в\u00a0векторе: соберу что\u00a0угодно, в\u00a0том числе под\u00a0печать',
+          k: ['Illustrator']
+        }
+      ]
+    },
+    {
+      items: [
+        {
+          s: 'img/px-statue.png', a: 'Пиксель-арт', o: ['Скриншот игры', 'Схема вышивки'],
+          t: 'Pixel art · Концепт для\u00a0игры',
+          x: 'Пиксель-арт\u00a0— хобби. Идёт бонусом как\u00a0интересный факт и\u00a0ещё одно направление, в\u00a0котором я\u00a0рисую',
+          k: ['Aseprite']
+        },
+        {
+          s: 'img/px-spheres.png', a: 'Упражнение на объём', o: ['Планеты', 'Кнопки интерфейса'],
+          t: 'Pixel art · Круглые фактуры',
+          x: 'Пиксель-арт\u00a0— хобби. Идёт бонусом как\u00a0интересный факт и\u00a0ещё одно направление, в\u00a0котором я\u00a0рисую',
+          k: ['Aseprite']
+        }
+      ]
+    },
+    {
+      items: [
+        {
+          s: 'img/tat-tribal.jpg', a: 'Татуировка', o: ['Логотип банка', 'Бабочка'],
+          t: 'Тату · Трайбл-орнаментал',
+          x: 'Хобби\u00a0— делать людям больно за\u00a0деньги. Веду клиента от\u00a0идеи до\u00a0результата на\u00a0всю жизнь, без\u00a0права на\u00a0ошибку',
+          k: ['Тату-машинка']
+        },
+        {
+          s: 'img/tat-runes.jpg', a: 'Татуировка', o: ['Циферблат', 'Печать на документе'],
+          t: 'Тату · Рунический оберег',
+          x: 'Хобби\u00a0— делать людям больно за\u00a0деньги. Веду клиента от\u00a0идеи до\u00a0результата на\u00a0всю жизнь, без\u00a0права на\u00a0ошибку',
+          k: ['Тату-машинка']
+        }
+      ]
+    }
+  ];
+
+  var gi = 0, gRun = 0, gScore = 0, gMiss = 0, gLocked = false, gDone = false;
+  var gCv = document.getElementById('gCanvas'), gCtx = gCv.getContext('2d');
+  var gImg = document.getElementById('gReveal');
+  var gNext = document.getElementById('gNext');
+  var gRev = document.getElementById('gRev');
+  var gOpts = document.getElementById('gOpts');
+  var gQ = document.getElementById('gQ');
+  var offC = document.createElement('canvas'), offX = offC.getContext('2d');
+  var cur = null, curImg = null;
+
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = (Math.random() * (i + 1)) | 0; var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  function drawPixel(px) {
+    if (!curImg || !curImg.naturalWidth) return;
+    var CW = gCv.width, CH = gCv.height;
+    var ar = curImg.naturalWidth / curImg.naturalHeight;
+    var dw, dh;
+    if (ar > CW / CH) { dw = CW; dh = Math.round(CW / ar); } else { dh = CH; dw = Math.round(CH * ar); }
+    var w = Math.max(4, Math.round(px)), h = Math.max(3, Math.round(px / ar));
+    offC.width = w; offC.height = h;
+    offX.imageSmoothingEnabled = true;
+    offX.drawImage(curImg, 0, 0, w, h);
+    gCtx.imageSmoothingEnabled = false;
+    gCtx.fillStyle = '#1B1030';
+    gCtx.fillRect(0, 0, CW, CH);
+    gCtx.drawImage(offC, 0, 0, w, h, Math.round((CW - dw) / 2), Math.round((CH - dh) / 2), dw, dh);
+  }
+
+  var G_OK = ['в точку', 'глаз-алмаз', 'засчитано', 'ну ты даёшь', 'а\u00a0говорят, пиксели не\u00a0читаются',
+    'с первого взгляда', 'да, это оно'];
+  var G_NO = ['мимо', 'а жаль', 'почти', 'версия красивая, но нет', 'тут бы и я не узнала',
+    'это\u00a0я\u00a0виновата, мало пикселей', 'зато уверенно'];
+  var G_NEW = ['так, а это что', 'следующая', 'эту я люблю', 'ну-ка', 'а тут посложнее',
+    'эта попроще', 'а вот это моё любимое'];
+
+  function gSay(t) {
+    var el = document.getElementById('gBubble');
+    if (el) el.textContent = t;
+  }
+
+  function gShow() {
+    var items = CATS[gi].items;
+    cur = items[Math.min(gRun, items.length - 1)];
+    gLocked = false;
+    document.getElementById('gRound').textContent = (gi + 1) + '/' + CATS.length;
+    document.getElementById('gScore').textContent = gScore;
+    document.getElementById('gMiss').textContent = gMiss;
+    gSay(gi === 0 ? 'Картинка сжата до 30 пикселей\nУгадай, что на ней'
+      : gi === CATS.length - 1 ? 'последняя, не подведи'
+      : pick(G_NEW));
+    gImg.hidden = true; gCv.hidden = false; gZoom.hidden = true;
+    gRev.hidden = true;
+    gQ.hidden = false;
+    gQ.textContent = 'Что это?';
+    gOpts.hidden = false;
+    gOpts.innerHTML = '';
+    shuffle([cur.a].concat(cur.o)).forEach(function (o) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'opt'; b.textContent = o;
+      b.addEventListener('click', function () { gAnswer(b, o === cur.a); });
+      gOpts.appendChild(b);
+    });
+    gNext.disabled = true;
+    gNext.hidden = false;
+    gNext.textContent = gi >= CATS.length - 1 ? 'Итог' : 'Дальше';
+    curImg = new Image();
+    curImg.onload = function () { drawPixel(30); };
+    curImg.src = cur.s;
+  }
+
+  var gZoom = document.getElementById('gZoom');
+  function gOpenBig() {
+    if (!gImg.src || gImg.hidden) return;
+    if (lb && lb.showModal) {
+      lbImg.src = gImg.src; lbImg.alt = cur ? cur.t : '';
+      lb.showModal(); document.body.classList.add('lb-open');
+    }
+  }
+  gZoom.addEventListener('click', gOpenBig);
+  gImg.addEventListener('click', gOpenBig);
+
+  function revealAnim() {
+    var steps = [40, 56, 80, 118, 175, 260, 390];
+    var i = 0;
+    (function step() {
+      if (i >= steps.length) {
+        gImg.src = cur.s; gImg.alt = cur.t; gImg.hidden = false; gCv.hidden = true; gZoom.hidden = false;
+        return;
+      }
+      drawPixel(steps[i++]);
+      setTimeout(step, 80);
+    })();
+  }
+
+  function gAnswer(btn, ok) {
+    if (gLocked) return;
+    gLocked = true;
+    if (ok) { gScore++; sfxGood(); gSay(pick(G_OK)); }
+    else { gMiss++; sfxBad(); gSay(pick(G_NO)); }
+    document.getElementById('gScore').textContent = gScore;
+    document.getElementById('gMiss').textContent = gMiss;
+    revealAnim();
+    gOpts.hidden = true;
+    gQ.hidden = true;
+    document.getElementById('gChip').textContent = ok ? 'Верно' : 'Мимо';
+    document.getElementById('gChip').className = ok ? 'vchip' : 'vchip no';
+    document.getElementById('gTitle').textContent = cur.t;
+    document.getElementById('gText').textContent = cur.x;
+    var tools = document.getElementById('gTools');
+    tools.innerHTML = '';
+    cur.k.forEach(function (n) {
+      var sp = document.createElement('span');
+      sp.className = 'tool'; sp.textContent = n;
+      tools.appendChild(sp);
+    });
+    gRev.hidden = false;
+    gNext.disabled = false;
+  }
+
+  function gFinish() {
+    gDone = true;
+    sfxWin();
+    gSay(gScore >= 4 ? 'неплохо!' : 'ну ничего');
+    gOvShow(
+      'Угадано<br>' + gScore + ' из ' + CATS.length,
+      gRun === 0
+        ? 'Если хочешь\u00a0— можно посмотреть ещё раунд работ: шесть других, по\u00a0одной из\u00a0каждой ветки.'
+        : 'Это\u00a0все двенадцать работ. Дальше по\u00a0странице\u00a0— чем я\u00a0занималась семь лет и\u00a0как меня найти.',
+      gRun === 0 ? 'Ещё шесть работ' : 'Ещё раз',
+      'again'
+    );
+  }
+
+  /* ответ с клавиатуры: 1 2 3 по видимым вариантам */
+  window.addEventListener('keydown', function (e) {
+    if (gLocked || gDone) return;
+    if (document.getElementById('gBody').classList.contains('off')) return;
+    var i = ['1', '2', '3'].indexOf(e.key);
+    if (i === -1) return;
+    var btns = gOpts.querySelectorAll('.opt');
+    if (btns[i]) { e.preventDefault(); btns[i].click(); }
+  });
+
+  gNext.addEventListener('click', function () {
+    if (gNext.disabled) return;
+    if (gDone) return;
+    if (gi >= CATS.length - 1) { gFinish(); return; }
+    gi++; gShow();
+  });
+
+  var gOv = document.getElementById('gOv');
+  var gOvBtn = document.getElementById('gStart');
+  var gOvMode = 'start';
+
+  function gOvShow(ttl, text, btn, mode) {
+    document.getElementById('gOvTtl').innerHTML = ttl;
+    document.getElementById('gOvText').textContent = text;
+    gOvBtn.textContent = btn;
+    gOvMode = mode;
+    gOv.hidden = false;
+    document.getElementById('gBody').classList.add('off');
+    gZoom.hidden = true;
+    gNext.hidden = true;
+  }
+
+  gOvBtn.addEventListener('click', function () {
+    gOv.hidden = true;
+    document.getElementById('gBody').classList.remove('off');
+    sfxStart();
+    if (gOvMode === 'again') {
+      gDone = false;
+      gRun = gRun === 0 ? 1 : 0;
+      gi = 0; gScore = 0; gMiss = 0;
+      gShow();
+    }
+    gOvMode = 'play';
+  });
+
+  /* высота нижнего блока угадайки: один раз считаем самое высокое
+     состояние из всех раундов и фиксируем, чтобы ничего не прыгало */
+  var gBodyEl = document.getElementById('gBody');
+
+  function gFitBody() {
+    /* ширину берём по рамке блока, а не по контенту: иначе полоса прокрутки
+       сужает замер, высота меняется и замер начинает гулять сам от себя */
+    var w = Math.round(gBodyEl.getBoundingClientRect().width);
+    if (!w) return;
+    var probe = gBodyEl.cloneNode(true);
+    var ids = probe.querySelectorAll('[id]');
+    for (var k = 0; k < ids.length; k++) ids[k].removeAttribute('id');
+    probe.classList.remove('off');
+    probe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;' +
+      'height:auto;max-height:none;overflow:visible;width:' + w + 'px';
+    gBodyEl.parentNode.appendChild(probe);
+
+    var pQ = probe.querySelector('.guess-q');
+    var pOpts = probe.querySelector('.guess-opts');
+    var pRev = probe.querySelector('.verdict');
+    var pTitle = probe.querySelectorAll('.verdict-t span')[1];
+    var pText = probe.querySelector('.reveal-x');
+    var pTools = probe.querySelector('.tools');
+    var max = 0;
+
+    function pShow(el, on) {
+      if (!el) return;
+      if (on) el.style.removeProperty('display');
+      else el.style.setProperty('display', 'none', 'important');
+      el.removeAttribute('hidden');
+    }
+
+    CATS.forEach(function (c) {
+      c.items.forEach(function (it) {
+        pShow(pQ, true); pQ.textContent = 'Что это?';
+        pShow(pOpts, true); pOpts.innerHTML = '';
+        [it.a].concat(it.o).forEach(function (o) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'opt'; b.textContent = o;
+          pOpts.appendChild(b);
+        });
+        pShow(pRev, false);
+        if (probe.scrollHeight > max) max = probe.scrollHeight;
+
+        pShow(pQ, false); pShow(pOpts, false); pShow(pRev, true);
+        if (pTitle) pTitle.textContent = it.t;
+        if (pText) pText.textContent = it.x;
+        pTools.innerHTML = '';
+        it.k.forEach(function (n) {
+          var sp = document.createElement('span');
+          sp.className = 'tool'; sp.textContent = n;
+          pTools.appendChild(sp);
+        });
+        if (probe.scrollHeight > max) max = probe.scrollHeight;
+      });
+    });
+
+    probe.parentNode.removeChild(probe);
+    if (max) gBodyEl.style.height = (max + 1) + 'px';
+  }
+
+  var fitT = null, lastFitW = 0;
+  function fitLater() { clearTimeout(fitT); fitT = setTimeout(gFitBody, 180); }
+  window.addEventListener('resize', fitLater);
+  if (window.ResizeObserver) {
+    new ResizeObserver(function (en) {
+      var w = Math.round(en[0].contentRect.width);
+      if (w && w !== lastFitW) { lastFitW = w; fitLater(); }
+    }).observe(gBodyEl.parentNode);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(gFitBody);
+
+  gShow();
+  gFitBody();
+
+})();
+</script>
+
+</body>
+</html>
